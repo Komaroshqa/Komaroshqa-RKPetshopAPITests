@@ -109,16 +109,9 @@ class TestPet:
 
     @allure.title("Обновление информации о питомце")
     def test_update_pet_information(self, create_pet):
-        with allure.step("Подготовка данных для создания питомца"):
-            payload = create_pet
-
-        with allure.step("Отправка POST-запроса на создание питомца"):
-            response = requests.post(f"{BASE_URL}/pet", json=payload)
-            assert response.status_code == 200, "Код ответа не совпал с ожидаемым"
-            create_json = response.json()
 
         with allure.step("Получение ID созданного питомца"):
-            pet_id = create_json["id"]
+            pet_id = create_pet["id"]
 
         with allure.step("Подготовка данных для обновления информации о питомце"):
             payload = {
@@ -139,16 +132,9 @@ class TestPet:
 
     @allure.title("Удаление питомца по ID")
     def test_delete_pet_by_id(self, create_pet):
-        with allure.step("Подготовка данных для создания питомца"):
-            payload = create_pet
-
-        with allure.step("Отправка POST-запроса на создание питомца"):
-            response = requests.post(f"{BASE_URL}/pet", json=payload)
-            assert response.status_code == 200, "Код ответа не совпал с ожидаемым"
-            create_json = response.json()
 
         with allure.step("Получение ID созданного питомца"):
-            pet_id = create_json["id"]
+            pet_id = create_pet["id"]
 
         with allure.step("Отправка DELETE-запроса на удаление питомца"):
             response = requests.delete(f"{BASE_URL}/pet/{pet_id}")
