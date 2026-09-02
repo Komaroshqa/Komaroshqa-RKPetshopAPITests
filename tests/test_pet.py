@@ -164,3 +164,8 @@ class TestPet:
             assert response.status_code == expected_status_code
             if response.status_code == 200:
                 assert isinstance(response.json(), list)
+            elif response.status_code == 400:
+                error_data = response.json()
+                assert isinstance(error_data, dict)
+                assert "message" in error_data
+                assert error_data.get("code") == 400
